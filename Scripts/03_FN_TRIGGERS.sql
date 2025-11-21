@@ -6,6 +6,10 @@ RETURNS TRIGGER AS $$
 BEGIN
 IF NEW.estado = 'Entregado' AND OLD.estado = 'En proceso' THEN
 RAISE EXCEPTION 'No se puede pasar de En proceso a Entregado directamente. Debe pasar por Enviado.';
+ELSIF OLD.estado = 'Enviado' AND NEW.estado = 'En proceso' THEN
+RAISE EXCEPTION 'No se puede volver de Enviado a En proceso.';
+ELSIF OLD.estado = 'Entregado' AND NEW.estado <> 'Entregado' THEN
+RAISE EXCEPTION 'No se puede cambiar el estado de Entregado a ningún otro estado.';
 END IF;
 RETURN NEW;
 END;
@@ -21,8 +25,7 @@ CREATE OR REPLACE FUNCTION update_total_venta_fn()
 RETURNS TRIGGER AS $$
 BEGIN
 UPDATE venta
-SET total = (SELECT COALESCE(SUM(subtotal),0) FROM detalle_venta WHERE id_venta = NEW.id_venta)
-WHERE id = NEW.id_venta;
+SET total = fn_calcular_total_venta(NEW.id_venta)
 RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -60,9 +63,7 @@ RETURNS TRIGGER AS $$
 DECLARE
 stock_actual INT;
 BEGIN
-SELECT stock INTO stock_actual
-FROM variaciones
-WHERE id = NEW.id_variacion;
+stock_actual := fn_stock_disponible(NEW.id_variacion);
 
 IF NEW.cantidad > stock_actual THEN
 RAISE EXCEPTION 'No hay stock suficiente para agregar al carrito.';
@@ -101,6 +102,7 @@ descuento_aplicado INT;
 BEGIN
 descuento_aplicado := fn_calcular_descuento(NEW.id_variacion);
 NEW.descuento := descuento_aplicado;
+NEW.subtotal := NEW.precio_unitario * NEW.cantidad * (1 - NEW.descuento / 100.0);
 RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -129,7 +131,6 @@ END IF;
 RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
 
 CREATE TRIGGER check_compra_resena_trigger
 BEFORE INSERT ON resena
