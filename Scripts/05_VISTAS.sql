@@ -1,3 +1,5 @@
+-- vistas
+
 -- VISTA: vista_mejores_clientes
 -- Muestra los clientes que más compraron, sumando el total gastado.
 CREATE OR REPLACE VIEW vista_mejores_clientes AS

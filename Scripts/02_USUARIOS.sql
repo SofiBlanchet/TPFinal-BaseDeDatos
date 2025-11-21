@@ -1,3 +1,5 @@
+-- roles
+
 -- Creación de usuarios
 CREATE USER admin_bd WITH PASSWORD 'admin123';
 CREATE USER cliente_bd WITH PASSWORD 'cliente123';

@@ -1,3 +1,5 @@
+-- funciones
+
 --Función: fn_calcular_total_venta
 CREATE OR REPLACE FUNCTION fn_calcular_total_venta(id_venta_param INT)
 RETURNS NUMERIC AS $$

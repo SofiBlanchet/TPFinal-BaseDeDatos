@@ -25,7 +25,7 @@ CREATE OR REPLACE FUNCTION update_total_venta_fn()
 RETURNS TRIGGER AS $$
 BEGIN
 UPDATE venta
-SET total = fn_calcular_total_venta(NEW.id_venta)
+SET total = fn_calcular_total_venta(NEW.id_venta);
 RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

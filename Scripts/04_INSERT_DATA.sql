@@ -1,3 +1,5 @@
+-- inserts
+
 -- USUARIO
 INSERT INTO usuario (mail, nombre, apellido, rol)
 VALUES
