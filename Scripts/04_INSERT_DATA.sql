@@ -20,23 +20,23 @@ VALUES
 ('pepe@gmail.com', 'José', 'Martinez', 'Cliente');
 
 -- DIRECCION
-INSERT INTO direccion (calle, numero, cp)
+INSERT INTO direccion (calle, numero, cp, ciudad)
 VALUES
-('Belgrano', 123, '1001'),
-('Sarmiento', 450, '1002'),
-('Mitre', 80, '1003'),
-('Rivadavia', 502, '1004'),
-('Cordoba', 900, '1005'),
-('Urquiza', 300, '1006'),
-('San Martin', 700, '1007'),
-('Independencia', 250, '1008'),
-('Colon', 600, '1009'),
-('Italia', 150, '1010'),
-('España', 410, '1011'),
-('Paraguay', 333, '1012'),
-('Brasil', 442, '1013'),
-('Mexico', 221, '1014'),
-('Peru', 199, '1015');
+('Belgrano', 123, '1001', 'CABA'),
+('Sarmiento', 450, '1002', 'CABA'),
+('Mitre', 80, '1003', 'CABA'),
+('Rivadavia', 502, '1004', 'CABA'),
+('Cordoba', 900, '1005', 'CABA'),
+('Urquiza', 300, '1006', 'CABA'),
+('San Martin', 700, '1007', 'CABA'),
+('Independencia', 250, '1008', 'CABA'),
+('Colon', 600, '1009', 'CABA'),
+('Italia', 150, '1010', 'CABA'),
+('España', 410, '1011', 'CABA'),
+('Paraguay', 333, '1012', 'CABA'),
+('Brasil', 442, '1013', 'CABA'),
+('Mexico', 221, '1014', 'CABA'),
+('Peru', 199, '1015', 'CABA');
 
 -- DIRECCION_USUARIO
 INSERT INTO direccion_usuario (id_direccion, mail_usuario)

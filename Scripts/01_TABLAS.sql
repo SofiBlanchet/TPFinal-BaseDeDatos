@@ -9,7 +9,7 @@ CREATE TYPE colores AS ENUM ('Blanco','Negro','Gris','Beige','Marron','Azul','Ce
 -- creación de tablas
 
 CREATE TABLE usuario (
-mail VARCHAR (50) PRIMARY KEY,
+mail VARCHAR (50) PRIMARY KEY CHECK (mail ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
 nombre VARCHAR (30) NOT NULL,
 apellido VARCHAR (30) NOT NULL,
 rol rol_usuario NOT NULL
@@ -19,7 +19,8 @@ CREATE TABLE direccion (
 id SERIAL PRIMARY KEY,
 calle VARCHAR (50) NOT NULL,
 numero VARCHAR (20) NOT NULL,
-cp VARCHAR (10) NOT NULL
+cp VARCHAR (10) NOT NULL,
+ciudad VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE direccion_usuario (
@@ -38,12 +39,12 @@ REFERENCES usuario(mail)
 
 CREATE TABLE marca (
 ID SERIAL PRIMARY KEY,
-nombre VARCHAR (50) NOT NULL
+nombre VARCHAR (50) NOT NULL UNIQUE
 );
 
 CREATE TABLE producto (
 id SERIAL PRIMARY KEY,
-nombre VARCHAR(30) NOT NULL,
+nombre VARCHAR(30) NOT NULL UNIQUE,
 descripcion TEXT NOT NULL,
 material materiales NOT NULL,
 precio NUMERIC(12,2) NOT NULL CHECK (precio >= 0),
