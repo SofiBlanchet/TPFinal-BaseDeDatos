@@ -1,3 +1,5 @@
+-- testing
+
 -- PRUEBA 1: STOCK INSUFICIENTE
 INSERT INTO detalle_carrito (cantidad, precio_unitario, id_carrito, id_variacion)
 VALUES (50, 45000, 1, 1);
@@ -10,8 +12,18 @@ INSERT INTO detalle_venta (cantidad, precio_unitario, descuento, subtotal, id_ve
 VALUES (1, 45000, 0, 45000, 1, 1);
 
 -- PRUEBA 3B: DETALLE VENTA CON PROMO
+-- NUEVA PROMO ACTIVA
+INSERT INTO promo (nombre, descuento, fecha_inicio, fecha_fin)
+VALUES ('Promo Test Activa', 20, CURRENT_DATE - 1, CURRENT_DATE + 7);
+-- ASOCIAR PROMO CON PRODUCTO 7
+INSERT INTO promo_producto (activo, id_promo, id_producto)
+VALUES (true, 16, 7);
+-- DETALLE VENTA CON PROMO ACTIVA
 INSERT INTO detalle_venta (cantidad, precio_unitario, descuento, subtotal, id_venta, id_variacion)
-VALUES (1, 49000, 0, 49000, 2, 2);
+VALUES (1, 49000, 0, 49000, 2, 7)
+RETURNING id;
+
+SELECT * FROM detalle_venta WHERE id = 17;
 
 -- PRUEBA 4: RESEÑA SIN COMPRA
 INSERT INTO resena (comentario, valoracion, fecha, id_producto, mail_usuario)
@@ -21,10 +33,10 @@ VALUES ('Fake', 5, '2025-08-10', 15, 'ana@gmail.com');
 INSERT INTO promo (nombre, descuento, fecha_inicio, fecha_fin)
 VALUES ('Promo Mala', 10, '2025-09-10', '2025-09-01');
 
--- PRUEBA 6: TOTAL CARRITO
-INSERT INTO detalle_carrito (cantidad, precio_unitario, id_carrito, id_variacion)
-VALUES (1, 45000, 1, 1);
-SELECT * FROM carrito WHERE id = 1;
+-- PRUEBA 6: TOTAL VENTA
+INSERT INTO detalle_venta (cantidad, precio_unitario, descuento, subtotal, id_venta, id_variacion)
+VALUES (1, 54000, 0, 54000, 1, 9);
+SELECT * FROM venta WHERE id = 1;
 
 -- PRUEBA 7: VALORACIÓN FUERA DE RANGO
 INSERT INTO resena (comentario, valoracion, fecha, id_producto, mail_usuario)

@@ -1,3 +1,4 @@
+-- funciones
 
 --Función: fn_calcular_total_venta
 CREATE OR REPLACE FUNCTION fn_calcular_total_venta(id_venta_param INT)
@@ -72,8 +73,6 @@ BEGIN
     RETURN id_venta_creada;
 END;
 $$ LANGUAGE plpgsql;
-
-
 
 --Función: fn_stock_disponible
 CREATE OR REPLACE FUNCTION fn_stock_disponible(id_variacion_param INT)
