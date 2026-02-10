@@ -37,6 +37,7 @@ VALUES ('Promo Mala', 10, '2025-09-10', '2025-09-01');
 INSERT INTO detalle_venta (cantidad, precio_unitario, descuento, subtotal, id_venta, id_variacion)
 VALUES (1, 54000, 0, 54000, 1, 9);
 SELECT * FROM venta WHERE id = 1;
+SELECT * FROM detalle_venta WHERE id_venta = 1;
 
 -- PRUEBA 7: VALORACIÓN FUERA DE RANGO
 INSERT INTO resena (comentario, valoracion, fecha, id_producto, mail_usuario)
@@ -45,14 +46,14 @@ VALUES ('Inválida', 7, '2025-08-10', 1, 'ana@gmail.com');
 -- PRUEBA 8: DUPLICADO EN WISHLIST
 INSERT INTO wishlist (fecha_creacion, mail_usuario, id_producto)
 VALUES ('2025-09-10', 'ana@gmail.com', 1);
-INSERT INTO wishlist (fecha_creacion, mail_usuario, id_producto)
-VALUES ('2025-09-10', 'ana@gmail.com', 1);
 
 -- PRUEBAS DE FUNCIONES
 SELECT fn_calcular_total_venta(1);
-SELECT fn_calcular_descuento(2);
+SELECT fn_calcular_descuento(7);
 SELECT fn_stock_disponible(1);
+
 SELECT fn_registrar_venta('ana@gmail.com',1);
+SELECT * FROM venta WHERE id = 16;
 
 -- PRUEBAS DE VISTAS
 SELECT * FROM vista_mejores_clientes;
